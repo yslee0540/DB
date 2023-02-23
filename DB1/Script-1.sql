@@ -42,12 +42,3 @@ SELECT * FROM "member" -- 모든 컬럼
 SELECT id FROM "member"
 
 SELECT id, pw FROM "member"
-
-
-
-
-
-
-
-
-
