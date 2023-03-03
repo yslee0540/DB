@@ -23,7 +23,7 @@ CREATE TABLE PRODUCT
 	)
 
 -- 저장할 대상: 엔티티(회원정보, 게시판, 상품), 엔티티간의 관계: 회원이 상품을 주문하다(주문정보)
---          엔티티 + 관계 => 테이블로
+-- 엔티티 + 관계 => 테이블로
 
 CREATE TABLE ORDERLIST (
 	"no" VARCHAR2(100),
