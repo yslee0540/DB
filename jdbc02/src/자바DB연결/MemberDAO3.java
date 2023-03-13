@@ -4,10 +4,58 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import 화면DB연결.MemberVO;
 
 public class MemberDAO3 {
+
+	public ArrayList<MemberVO> list() {
+		ResultSet rs = null;
+		
+		//가방들 넣어줄 큰 컨테이너 역할
+		ArrayList<MemberVO> list = new ArrayList<>();
+		MemberVO bag = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("1. 오라클과 자바 연결할 부품 설정 성공");
+			
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String user = "system";
+			String password = "oracle";
+			Connection con = DriverManager.getConnection(url, user, password);
+			System.out.println("2. 오라클 연결 성공");
+			
+			String sql = "select * from hr.MEMBER";
+			PreparedStatement ps = con.prepareStatement(sql);
+			System.out.println("3. SQL문 부품(객체)으로 만들어주기 성공");
+			
+			rs = ps.executeQuery();
+			System.out.println("4. SQL문 오라클로 보내기 성공");
+			while (rs.next()) { //검색결과가 있는지 여부
+				//System.out.println("검색결과 있음");
+				String id2 = rs.getString(1);
+				String pw = rs.getString(2);
+				String name = rs.getString(3);
+				String tel = rs.getString(4);
+				//System.out.println(id2 + " " + pw + " " + name + " " + tel);
+				
+				//검색결과를 검색화면 UI로 주어야 함
+				bag = new MemberVO();
+				bag.setId(id2);
+				bag.setPw(pw);
+				bag.setName(name);
+				bag.setTel(tel);
+				
+				//list에 bag 추가
+				list.add(bag);
+			}
+			ps.close(); con.close(); rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	public int login(MemberVO bag) {
 		int result = 0;
