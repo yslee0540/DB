@@ -25,10 +25,10 @@ public class MongoDBTest_find2 {
 		System.out.println("3. memo 컬렉션에 연결 성공");
 		
 		FindIterable<Document> list = collection.find();
-		ArrayList<MemoVO> result = new ArrayList<MemoVO>();
+		ArrayList<MemoVO2> result = new ArrayList<>();
 		
 		for (Document document : list) {
-			MemoVO vo = new MemoVO();
+			MemoVO2 vo = new MemoVO2();
 			vo.setName(document.getString("name"));
 			vo.setAge(document.getInteger("age"));
 			vo.setOffice(document.getString("office"));
